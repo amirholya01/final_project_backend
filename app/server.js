@@ -51,6 +51,22 @@ module.exports = class Application{
     }
 
     errorHandler(){
+        const createError = require("http-errors");
 
+        this.#app.use((req, res, next) => {
+            next(createError.NotFound("Address was not found"))
+        });
+
+        this.#app.use((err, req, res, next) => {
+            const serverError = createError.InternalServerError;
+            const statusCode = err.status || serverError.statusCode;
+            const message = err.message || serverError.message;
+            return res.status(statusCode).json({
+                errors: {
+                    statusCode,
+                    message
+                }
+            })
+        })
     }
 }
