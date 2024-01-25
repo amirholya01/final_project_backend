@@ -1,0 +1,33 @@
+{
+  "name": "final_project_backend",
+  "version": "1.0.0",
+  "description": "It's a project such as Udemy web application and I used express js, mongoDB, etc",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/amirholya01/final_project_backend.git"
+  },
+  "keywords": [
+    "nodejs",
+    "expressjs",
+    "mongodb"
+  ],
+  "author": "Amir Hossein Olyanasabnarab",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/amirholya01/final_project_backend/issues"
+  },
+  "homepage": "https://github.com/amirholya01/final_project_backend#readme",
+  "dependencies": {
+    "auto-bind": "^4.0.0",
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.1.1",
+    "nodemon": "^3.0.3"
+  }
+}
