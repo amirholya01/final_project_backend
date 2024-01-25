@@ -1,10 +1,38 @@
 const { UserModel } = require("../../../models/users");
 const { hashPassword, generateActivationToken, transporter } = require("../../../utils/functions");
 const { authRegisterSchema } = require("../../../validations/user/auth.schema");
+
 const Controller = require("../../Controller");
 class UserAuthController extends Controller{
 
+async register(req, res, next){
+    try {
+       
+        const{ email, password} = req.body;
 
+        const hashedPassword = hashPassword(password);
+        
+         // Create a new user object in the database
+         const user = await UserModel.create({  email, password: hashedPassword })
+        
+         // If the username is already in use, catch the error and throw a custom error object
+         .catch(err => {
+            if(err?.code == 11000){
+                throw {status : 400, message : "The username is already in use"}
+            }
+         })
+         // Return the created user
+         return res.json(user)
+      
+        
+    } catch (error) {
+        next(error)
+    }
+}
+
+async login(){
+
+}
     // async registerUser(username, email, password){
     //    const{error} = authRegisterSchema.validateAsync({username, email, password});
 
