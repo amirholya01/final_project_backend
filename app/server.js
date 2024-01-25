@@ -1,5 +1,8 @@
 const { AllRoutes } = require("./router/router");
 const morgan = require("morgan");
+const swaggerUi = require("swagger-ui-express");
+const swaggerJs = require("swagger-jsdoc");
+
 
 module.exports = class Application{
 
@@ -21,6 +24,25 @@ module.exports = class Application{
         this.#app.use(this.#express.json());
         this.#app.use(this.#express.urlencoded({extended : true}));
         this.#app.use(this.#express.static(path.join(__dirname, "..", "public")));
+        this.#app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJs({
+            swaggerDefinition: {
+                info: {
+                    title: "Backend of final project",
+                    version: "1.0.0",
+                    description: ".........",
+                    contact: {
+                        name: "Amir Hossein Olyanasabnarab",
+                        email: "amirholyanasab@gmail.com"
+                    }
+                },
+                servers:[
+                    {
+                        url: "http://localhost:5000"
+                    }
+                ]
+            },
+            apis: ["app/router/*/*.js"]
+        })))
 
     }
 
