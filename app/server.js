@@ -1,4 +1,5 @@
 const { AllRoutes } = require("./router/router");
+const morgan = require("morgan");
 
 module.exports = class Application{
 
@@ -16,6 +17,7 @@ module.exports = class Application{
     configApplication(){
         const path = require("path");
 
+        this.#app.use(morgan("dev"));
         this.#app.use(this.#express.json());
         this.#app.use(this.#express.urlencoded({extended : true}));
         this.#app.use(this.#express.static(path.join(__dirname, "..", "public")));
@@ -36,8 +38,11 @@ module.exports = class Application{
         mongoose.connect(DB_HOST)
             .then(() => console.log("Connecting to MongoDB was successfully"))
             .catch(err => console.log(`Connecting to MongoDB was failed ---- ${err}`));
-        
-        
+        //installing the morgan package and using it on the server file when breaking the connection to DB, it's a secure way 
+        process.on("SIGINT", async() => {
+            await mongoose.connection.close();
+            process.exit(0);
+        })
         
     }
 
