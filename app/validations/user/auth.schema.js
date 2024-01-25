@@ -5,3 +5,7 @@ const authRegisterSchema = Joi.object({
     email: Joi.string().email().required().error(new Error("Please enter the correct email format")),
     password: Joi.string().min(6).max(16).required().error(new Error("The password should at least be between 6 and 16 characters")),
 })
+
+module.exports = {
+    authRegisterSchema
+}

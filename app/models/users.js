@@ -7,7 +7,8 @@ const Schema = new mongoose.Schema({
     email: {type: String, required: true, lowercase: true, unique: true},
     password: {type: String, required: true},
     activationToken: {type: String, required: true},
-    activated: {type: Boolean, default: false}
+    activated: {type: Boolean, default: false},
+    role: {type: String, default: ["USER"]}
 })
 
 module.exports = {
