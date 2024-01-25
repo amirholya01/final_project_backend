@@ -1,3 +1,5 @@
+const { AllRoutes } = require("./router/router");
+
 module.exports = class Application{
 
     #express = require("express");
@@ -40,7 +42,7 @@ module.exports = class Application{
     }
 
     createRoutes(){
-
+        this.#app.use(AllRoutes);
     }
 
     errorHandler(){
